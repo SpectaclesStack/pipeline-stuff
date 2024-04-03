@@ -2,12 +2,12 @@
 # SPDX-License-Identifier: MPL-2.0
 
 variable "subnet_1_cidr" {
-  default     = "10.0.1.0/24"
+  default     = "10.0.0.128/26"
   description = "Subnet mask 1"
 }
 
 variable "subnet_2_cidr" {
-  default     = "10.0.2.0/24"
+  default     = "10.0.0.192/26"
   description = "Subnet mask 2"
 }
 

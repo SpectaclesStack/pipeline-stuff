@@ -45,15 +45,15 @@ variable "password" {
   description = "password is variable for now"
 }
 
-# variable "vpc_id" {
-#   default     = "vpc-02b334c8d3d063b7a"
-# }
-# 
-# variable "vpc_security_group_one" {
-#     default = "sg-06554e50a645995ee"
-#     description = "Web server security group"
-# }
-# 
+variable "vpc_id" {
+  default     = "vpc-083f32e755c65e040"
+}
+#
+variable "vpc_security_group" {
+    default = "sg-0b07ab97177f87775"
+    description = "Web server security group"
+}
+
 # variable "vpc_security_group_two" {
 #     default = "sg-0a17fd32633a462e6"
 #     description = "Database security group"
