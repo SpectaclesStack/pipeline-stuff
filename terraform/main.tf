@@ -24,21 +24,22 @@ provider "aws" {
 module "db" {
   source = "terraform-aws-modules/rds/aws"
 
-  # depends_on             = [aws_security_group.default]
-  publicly_accessible      = true
-  backup_retention_period  = 1
-  skip_final_snapshot      = true
-  deletion_protection      = false
-  identifier               = var.identifier
-  allocated_storage        = var.storage
-  engine                   = var.engine
-  engine_version           = var.engine_version
-  instance_class           = var.instance_class
-  db_name                  = var.db_name
-  username                 = var.username
-  password                 = var.password
-  vpc_security_group_ids   = [var.vpc_security_group]
-  timezone                 = "GMT Standard Time"
-  character_set_name       = "Latin1_General_CI_AS"
-  create_db_option_group   = false
+  # depends_on              = [aws_security_group.default]
+  publicly_accessible       = true
+  backup_retention_period   = 1
+  skip_final_snapshot       = true
+  deletion_protection       = false
+  identifier                = var.identifier
+  allocated_storage         = var.storage
+  engine                    = var.engine
+  engine_version            = var.engine_version
+  instance_class            = var.instance_class
+  db_name                   = var.db_name
+  username                  = var.username
+  password                  = var.password
+  vpc_security_group_ids    = [var.vpc_security_group]
+  timezone                  = "GMT Standard Time"
+  character_set_name        = "Latin1_General_CI_AS"
+  create_db_option_group    = false
+  create_db_parameter_group = false
 }
