@@ -6,6 +6,6 @@ variable "cidr_blocks" {
 }
 
 variable "sg_name" {
-  default     = "rds_sg"
+  default     = "spectacle db rds security group"
   description = "Tag Name for sg"
 }

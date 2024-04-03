@@ -3,21 +3,21 @@
 
 variable "subnet_1_cidr" {
   default     = "0.0.0.0/0"
-  description = "Your AZ"
+  description = "Subnet mask 1"
 }
 
 variable "subnet_2_cidr" {
   default     = "0.0.0.0/0"
-  description = "Your AZ"
+  description = "Subnet mask 2"
 }
 
 variable "az_1" {
-  default     = "eu-west-1"
+  default     = "eu-west-1a"
   description = "Your Az1, use AWS CLI to find your account specific"
 }
 
 variable "az_2" {
-  default     = "eu-west-1"
+  default     = "eu-west-1b"
   description = "Your Az2, use AWS CLI to find your account specific"
 }
 

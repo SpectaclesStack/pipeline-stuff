@@ -45,22 +45,29 @@ variable "password" {
   description = "password is variable for now"
 }
 
-variable "vpc_security_group_one" {
-    default = "sg-06554e50a645995ee"
-}
-
-variable "vpc_security_group_two" {
-    default = "sg-0a17fd32633a462e6"
-}
-
-variable "db_subnet_id_one" {
-    default = "subnet-0c7083d355715cb1b"
-}
-
-variable "db_subnet_id_two" {
-    default = "subnet-0abbe4dbf1c33983c"
-}
-
-variable "db_availability_zone" {
-  default = "eu-west-1a"
-}
+# variable "vpc_id" {
+#   default     = "vpc-02b334c8d3d063b7a"
+# }
+# 
+# variable "vpc_security_group_one" {
+#     default = "sg-06554e50a645995ee"
+#     description = "Web server security group"
+# }
+# 
+# variable "vpc_security_group_two" {
+#     default = "sg-0a17fd32633a462e6"
+#     description = "Database security group"
+# }
+# 
+# variable "db_subnet_id_one" {
+#     default = "subnet-0c7083d355715cb1b"
+#     description = "value"
+# }
+# 
+# variable "db_subnet_id_two" {
+#     default = "subnet-0abbe4dbf1c33983c"
+# }
+# 
+# variable "db_availability_zone" {
+#   default = "eu-west-1a"
+# }

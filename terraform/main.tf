@@ -9,24 +9,33 @@ provider "aws" {
   region = var.aws_region
 }
 
+# create default vpc if one does not exist
+resource "aws_default_vpc" "default_vpc" {
+  tags = {
+    Name = "default vpc"
+  }
+}
+
+resource "aws_db_subnet_group" "default_subnet" {
+  name        = "main_subnet_group"
+  description = "Our main group of subnets"
+  subnet_ids  = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
+
+  tags   = {
+    Name = "spectacle-stack-db-subnet"
+  }
+}
+
 resource "aws_db_instance" "default" {
-  # depends_on             = [aws_security_group.default]
+  depends_on             = [aws_security_group.default]
   identifier             = var.identifier
   allocated_storage      = var.storage
   engine                 = var.engine
   engine_version         = var.engine_version[var.engine]
   instance_class         = var.instance_class
+  db_name                = var.db_name
   username               = var.username
   password               = var.password
-  vpc_security_group_ids = [var.vpc_security_group_two]
-  db_subnet_group_name   = aws_db_subnet_group.default.id # 
-  db_name                = var.db_name
-  multi_az               = false
-  availability_zone      = var.db_availability_zone
-}
-
-resource "aws_db_subnet_group" "default" {
-  name        = "spectacle-stack-db-subnet"
-  description = "subnets for spectacle-stack db instance"
-  subnet_ids  = [var.db_subnet_id_one] 
+  vpc_security_group_ids = [aws_security_group.default.id]
+  db_subnet_group_name   = aws_db_subnet_group.default_subnet.id
 }
