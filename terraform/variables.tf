@@ -41,7 +41,8 @@ variable "username" {
 }
 
 variable "password" {
-  description = "password, provide through your ENV variables"
+  default     = "wandile"
+  description = "password is variable for now"
 }
 
 variable "vpc_security_group_one" {
