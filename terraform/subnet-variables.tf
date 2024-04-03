@@ -21,6 +21,6 @@ variable "az_2" {
   description = "Your Az2, use AWS CLI to find your account specific"
 }
 
-variable "vpc_id" {
-  description = "Your VPC ID"
-}
+# variable "vpc_id" {
+#   description = "Your VPC ID"
+# }
