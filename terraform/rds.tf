@@ -1,5 +1,4 @@
 # configured aws provider with proper credentials
-
 provider "aws" {
   region  = "eu-west-1"
 }
@@ -24,7 +23,7 @@ resource "aws_default_subnet" "subnet_az2" {
   availability_zone = data.aws_availability_zones.available_zones.names[1]
 }
 
-# create security group for the web server
+# create security group for the db server
 resource "aws_security_group" "webserver_security_group" {
   name        = "spectacle stack api server security group"
   description = "enable http access on port 8091"
@@ -32,7 +31,7 @@ resource "aws_security_group" "webserver_security_group" {
 
   ingress {
     description      = "http access"
-    from_port        = 8091
+    from_port        = 8091 # assuming c# will be using port 8091
     to_port          = 8091
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
