@@ -35,8 +35,9 @@ module "db" {
   allocated_storage         = var.storage
   engine                    = var.engine
   engine_version            = var.engine_version
+  family                    = "sqlserver-ex-16.0" # DB parameter group
+  major_engine_version      = "16.00"             # DB option group
   instance_class            = var.instance_class
-  db_name                   = var.db_name
   username                  = var.username
   password                  = var.password
   vpc_security_group_ids    = [var.vpc_security_group]
