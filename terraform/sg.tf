@@ -11,14 +11,14 @@ resource "aws_security_group" "default" {
     from_port   = 1433 # assuming c# will be using port 8091
     to_port     = 1433
     protocol    = "TCP"
-    cidr_blocks = [var.cidr_blocks]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [var.cidr_blocks]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
