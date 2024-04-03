@@ -25,10 +25,12 @@ module "db" {
   source = "terraform-aws-modules/rds/aws"
 
   # depends_on              = [aws_security_group.default]
+  # Encryption at rest is not available for DB instances running SQL Server Express Edition
+  storage_encrypted         = false
   publicly_accessible       = true
-  backup_retention_period   = 1
-  skip_final_snapshot       = true
-  deletion_protection       = false
+  maintenance_window        = "Mon:00:00-Mon:03:00"
+  backup_window             = "03:00-06:00"
+
   identifier                = var.identifier
   allocated_storage         = var.storage
   engine                    = var.engine
@@ -38,8 +40,13 @@ module "db" {
   username                  = var.username
   password                  = var.password
   vpc_security_group_ids    = [var.vpc_security_group]
+  backup_retention_period   = 1
+  skip_final_snapshot       = true
+  deletion_protection       = false
+
+  create_db_parameter_group = false
   timezone                  = "GMT Standard Time"
   character_set_name        = "Latin1_General_CI_AS"
+
   create_db_option_group    = false
-  create_db_parameter_group = false
 }
