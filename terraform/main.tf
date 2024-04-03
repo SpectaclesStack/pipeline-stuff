@@ -10,7 +10,7 @@ provider "aws" {
 }
 
 resource "aws_db_instance" "default" {
-  depends_on             = [aws_security_group.default]
+  # depends_on             = [aws_security_group.default]
   identifier             = var.identifier
   allocated_storage      = var.storage
   engine                 = var.engine
@@ -18,13 +18,15 @@ resource "aws_db_instance" "default" {
   instance_class         = var.instance_class
   username               = var.username
   password               = var.password
-  vpc_security_group_ids = [var.vpc_security_group_one, var.vpc_security_group_two]
+  vpc_security_group_ids = [var.vpc_security_group_two]
   db_subnet_group_name   = aws_db_subnet_group.default.id # 
   db_name                = var.db_name
+  multi_az               = false
+  availability_zone      = var.db_availability_zone
 }
 
 resource "aws_db_subnet_group" "default" {
   name        = "spectacle-stack-db-subnet"
   description = "subnets for spectacle-stack db instance"
-  subnet_ids  = [var.db_subnet_id_one, var.db_subnet_id_two] 
+  subnet_ids  = [var.db_subnet_id_one] 
 }
