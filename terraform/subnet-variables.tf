@@ -1,15 +1,15 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-# variable "subnet_1_cidr" {
-#   default     = "0.0.0.0/0"
-#   description = "Subnet mask 1"
-# }
-# 
-# variable "subnet_2_cidr" {
-#   default     = "0.0.0.0/0"
-#   description = "Subnet mask 2"
-# }
+variable "subnet_1_cidr" {
+  default     = "10.0.1.0/24"
+  description = "Subnet mask 1"
+}
+
+variable "subnet_2_cidr" {
+  default     = "10.0.2.0/24"
+  description = "Subnet mask 2"
+}
 
 variable "az_1" {
   default     = "eu-west-1a"

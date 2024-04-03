@@ -14,7 +14,7 @@ resource "aws_default_vpc" "default_vpc" {
 resource "aws_db_subnet_group" "default_subnet" {
   name        = "main_subnet_group"
   description = "Our main group of subnets"
-  subnet_ids  = [aws_default_subnet.subnet_1.id, aws_default_subnet.subnet_2.id]
+  subnet_ids  = [aws_subnet.subnet_1.id, aws_subnet.subnet_2.id]
 
   tags   = {
     Name = "spectacle-stack-db-subnet"
