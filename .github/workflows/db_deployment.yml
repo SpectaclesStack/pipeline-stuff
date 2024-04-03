@@ -21,6 +21,11 @@ jobs:
       - name: Git checkout 
         uses: actions/checkout@v3
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v4
         with:
