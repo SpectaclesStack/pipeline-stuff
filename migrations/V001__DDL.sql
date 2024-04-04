@@ -3,26 +3,26 @@ USE [Spectables-Stack-DB]
 GO
 
 CREATE TABLE Users(
- UserId INT IDENTITY(1,1) NOT NULL
-,UserName VARCHAR(20) NULL
-,Email NVARCHAR(30) NULL
-,DateCreated DATETIME NULL
+  UserId INT IDENTITY(1,1) NOT NULL,
+  UserName VARCHAR(20) NULL,
+  Email NVARCHAR(30) NULL,
+  DateCreated DATETIME NULL
 )
 GO
 
 CREATE TABLE Questions(
-  QuestionId INT IDENTITY(1,1) NOT NULL
- , UserId INT NOT NULL
- , Title VARCHAR(100) NOT NULL
- , Body NVARCHAR(1000) NOT NULL
- , CreatedAt datetime NULL
+  QuestionId INT IDENTITY(1,1) NOT NULL, 
+  UserId INT NOT NULL, 
+  Title VARCHAR(100) NOT NULL, 
+  Body NVARCHAR(1000) NOT NULL, 
+  CreatedAt datetime NULL
 )
 GO
 
 CREATE TABLE Answers(
- AnswerId INT IDENTITY(1,1) NOT NULL
-,QuestionId INT NOT NULL
-,UserId INT NOT NULL
-,CreatedAt DATETIME NULL
+  AnswerId INT IDENTITY(1,1) NOT NULL,
+  QuestionId INT NOT NULL,
+  UserId INT NOT NULL,
+  CreatedAt DATETIME NULL
 )
 GO 
