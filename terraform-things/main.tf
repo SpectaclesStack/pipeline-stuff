@@ -1,7 +1,6 @@
 # provider "aws" {
 #   region = var.aws_region
 # }
-# 
 # module "db" {
 #   source = "terraform-aws-modules/rds/aws"
 #   identifier                = "sectacle-stack-rds-instance"
