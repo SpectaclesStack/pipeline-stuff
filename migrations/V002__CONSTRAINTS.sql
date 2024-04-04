@@ -1,5 +1,5 @@
 --Add Constraints 
-USE [Spectables-Stack-DB]
+USE SpectablesStackDB;
 GO
 
 ALTER TABLE Users
