@@ -29,15 +29,17 @@ provider "aws" {
 module "db" {
   source = "terraform-aws-modules/rds/aws"
   identifier                = var.identifier
-  engine                    = var.engine
-  engine_version            = var.engine_version
+  engine                    = "sqlserver-ex"
+  engine_version            = "16.00"
   family                    = "sqlserver-ex-16.0" # DB parameter group
-  major_engine_version      = "16.00"             
-  instance_class            = var.instance_class
-  allocated_storage         = var.storage
+  major_engine_version      = "16.00"             # DB option group
+  instance_class            = "db.t3.micro"
+  allocated_storage         = 20
+  max_allocated_storage     = 30
   storage_encrypted         = false
   username                  = var.username
   password                  = var.password
+  port                      = 1433
   publicly_accessible       = true
   vpc_security_group_ids    = [var.vpc_security_group]
 
@@ -45,6 +47,7 @@ module "db" {
 
   maintenance_window        = "Mon:00:00-Mon:03:00"
   backup_window             = "03:00-06:00"
+
   backup_retention_period   = 1
   skip_final_snapshot       = true
   deletion_protection       = false
