@@ -12,9 +12,9 @@ permissions:
   contents: read
 
 jobs:
+  
   deploy:
     name: Build and Deploy Database
-
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -56,22 +56,21 @@ jobs:
         working-directory: ./terraform
         run: terraform apply -auto-approve
 
-
-  #FlywayMigration:
+  #migration:
   #  name: Run Flyway Migration
-#
+  #
   #  runs-on: ubuntu-latest
-#
+  # 
   #  steps:
   #    - name: Checkout
   #      uses: actions/checkout@v3.0.0
-#
+  #
   #    - name: Run Live Flyway Migrations
   #      uses: joshuaavalon/flyway-action@v3.0.0
   #      with:
-  #        url: jdbc:sqlserver://${{ env.DB_URL }}/${{ secrets.DB_INSTANCE_NAME }}
-  #        user: ${{ env.FW_USER }}
-  #        password: ${{ env.FW_PASS }}
-  #        locations:  filesystem:./db/migrations
+  #        url: jdbc:sqlserver://${{ secrets.DB_INSTANCE_NAME }}
+  #        user: ${{ secrets.DB_USER }}
+  #        password: ${{ secrets.DB_PASSWORD }}
+  #        locations:  filesystem:./migrations
   #      env:
   #        FLYWAY_VALIDATE_MIGRATION_NAMING: true
