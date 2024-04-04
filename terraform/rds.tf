@@ -100,7 +100,6 @@ module "db" {
   max_allocated_storage     = 30
   storage_encrypted         = false
   username                  = "bbdGradWandile"
-  password                  = "wandile"
   port                      = 1433
   publicly_accessible       = true
   db_subnet_group_name      = "spectacles-stack-db-subnet-group"
