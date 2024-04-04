@@ -1,8 +1,3 @@
-CREATE DATABASE SpectablesStackDB;
-GO
-USE SpectablesStackDB;
-GO
-
 CREATE TABLE [dbo].[Users] (
   UserId INT IDENTITY(1,1) NOT NULL,
   UserName VARCHAR(20) NULL,

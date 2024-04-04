@@ -1,7 +1,3 @@
-
-USE SpectablesStackDB;
-GO
-
 ALTER TABLE Users
 ADD CONSTRAINT UsersPK
 PRIMARY KEY(UserId);
