@@ -8,7 +8,7 @@ module "db" {
   engine                    = "sqlserver-ex"
   engine_version            = "16.00"
   family                    = "sqlserver-ex-16.0" # DB parameter group
-  major_engine_version      = "16.00"             # DB option group
+  major_engine_version      = "16.00"            
   instance_class            = "db.t3.micro"
   allocated_storage         = 20
   max_allocated_storage     = 30
