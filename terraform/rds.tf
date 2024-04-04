@@ -4,24 +4,24 @@ provider "aws" {
 }
 
 # create default vpc if one does not exist
-resource "aws_default_vpc" "default_vpc" {
-  tags = {
-    Name = "spectacles-stack-vpc"
-  }
-}
+#resource "aws_default_vpc" "default_vpc" {
+#  tags = {
+#    Name = "spectacles-stack-vpc"
+#  }
+#}
 
 # use data source to get all avalablility zones in region
-data "aws_availability_zones" "available_zones" {}
-
-# create a default subnet in the first az if one does not exist
-resource "aws_default_subnet" "subnet_az1" {
-  availability_zone = data.aws_availability_zones.available_zones.names[0]
-}
-
-# create a default subnet in the second az if one does not exist
-resource "aws_default_subnet" "subnet_az2" {
-  availability_zone = data.aws_availability_zones.available_zones.names[1]
-}
+# data "aws_availability_zones" "available_zones" {}
+# 
+# # create a default subnet in the first az if one does not exist
+# resource "aws_default_subnet" "subnet_az1" {
+#   availability_zone = data.aws_availability_zones.available_zones.names[0]
+# }
+# 
+# # create a default subnet in the second az if one does not exist
+# resource "aws_default_subnet" "subnet_az2" {
+#   availability_zone = data.aws_availability_zones.available_zones.names[1]
+# }
 
 # create security group for the web server
 # resource "aws_security_group" "webserver_security_group" {
@@ -50,42 +50,42 @@ resource "aws_default_subnet" "subnet_az2" {
 # }
 
 # create security group for the database
-resource "aws_security_group" "database_security_group" {
-  name        = "spectacle stack db security group"
-  description = "enable sqlserver/wandile access on port 1433"
-  vpc_id      = aws_default_vpc.default_vpc.id
-
-  ingress {
-    description      = "sqlserver/wandile access"
-    from_port        = 1433
-    to_port          = 1433
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = -1
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  tags   = {
-    Name = "spectacle stack db security group"
-  }
-}
+# resource "aws_security_group" "database_security_group" {
+#   name        = "spectacle stack db security group"
+#   description = "enable sqlserver/wandile access on port 1433"
+#   vpc_id      = aws_default_vpc.default_vpc.id
+# 
+#   ingress {
+#     description      = "sqlserver/wandile access"
+#     from_port        = 1433
+#     to_port          = 1433
+#     protocol         = "tcp"
+#     cidr_blocks      = ["0.0.0.0/0"]
+# 
+#   }
+# 
+#   egress {
+#     from_port        = 0
+#     to_port          = 0
+#     protocol         = -1
+#     cidr_blocks      = ["0.0.0.0/0"]
+#   }
+# 
+#   tags   = {
+#     Name = "spectacle stack db security group"
+#   }
+# }
 
 # create the subnet group for the rds instance
-resource "aws_db_subnet_group" "database_subnet_group" {
-  name         = "spectacle-stack-db-subnet"
-  subnet_ids   = [aws_default_subnet.subnet_az1.id, aws_default_subnet.subnet_az2.id]
-  description  = "subnets for spectacle-stack db instance"
-
-  tags   = {
-    Name = "spectacle-stack-db-subnet"
-  }
-}
+# resource "aws_db_subnet_group" "database_subnet_group" {
+#   name         = "spectacle-stack-db-subnet"
+#   subnet_ids   = [aws_default_subnet.subnet_az1.id, aws_default_subnet.subnet_az2.id]
+#   description  = "subnets for spectacle-stack db instance"
+# 
+#   tags   = {
+#     Name = "spectacle-stack-db-subnet"
+#   }
+# }
 
 # create the rds instance
 module "db" {
@@ -103,8 +103,8 @@ module "db" {
   password                  = "wandile"
   port                      = 1433
   publicly_accessible       = true
-  db_subnet_group_name      = aws_db_subnet_group.database_subnet_group.name
-  vpc_security_group_ids    = [aws_security_group.database_security_group.id]
+  db_subnet_group_name      = "spectacles-stack-db-subnet-group"
+  vpc_security_group_ids    = ["sg-0940ec5d5223a9426"]
   multi_az = false
 
   maintenance_window        = "Mon:00:00-Mon:03:00"
