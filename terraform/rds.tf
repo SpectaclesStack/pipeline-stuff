@@ -104,7 +104,7 @@ module "db" {
   port                      = 1433
   publicly_accessible       = true
   db_subnet_group_name      = "spectacles-stack-db-subnet-group"
-  vpc_security_group_ids    = ["sg-0940ec5d5223a9426"]
+  vpc_security_group_ids    = ["sg-012b3f4f0396e4c9a"]
   multi_az = false
 
   maintenance_window        = "Mon:00:00-Mon:03:00"
