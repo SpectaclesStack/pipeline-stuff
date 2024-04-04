@@ -11,7 +11,6 @@ permissions:
   contents: read
 
 jobs:
-  
   deploy:
     name: Build and Deploy Database
     needs: migration
