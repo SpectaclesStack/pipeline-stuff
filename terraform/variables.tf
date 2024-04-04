@@ -50,7 +50,7 @@ variable "vpc_id" {
 }
 
 variable "vpc_security_group" {
-    default = "sg-06c65865051ff0661"
+    default = "	sg-066606e30a5998385"
     description = "Db security group"
 }
 
