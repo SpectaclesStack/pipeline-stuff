@@ -67,7 +67,7 @@ jobs:
           docker run --rm
           --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
           redgate/flyway
-          -url=jdbc:sqlserver://${{ secrets.DB_INSTANCE_NAME }};authentication=sqlPassword;username=${{ secrets.DB_USERNAME }};password=${{ secrets.DB_PASSWORD }};databaseName=${{ secrets.DB_NAME }};encrypt=true;trustServerCertificate=true
-          -user=${{ secrets.DB_USERNAME }}
-          -password=${{ secrets.DB_PASSWORD }}
+          -url="jdbc:sqlserver://${{ secrets.DB_INSTANCE_NAME }};authentication=sqlPassword;username=${{ secrets.DB_USERNAME }};password=${{ secrets.DB_PASSWORD }};databaseName=${{ secrets.DB_NAME }};encrypt=true;trustServerCertificate=true"
+          -user="${{ secrets.DB_USERNAME }}"
+          -password="${{ secrets.DB_PASSWORD }}"
           -cleanDisabled=false migrate -X
