@@ -42,10 +42,10 @@ module "db" {
   vpc_security_group_ids    = [var.vpc_security_group]
 
   multi_az = false
-  
+
   maintenance_window        = "Mon:00:00-Mon:03:00"
   backup_window             = "03:00-06:00"
-  backup_retention_period   = 0
+  backup_retention_period   = 1
   skip_final_snapshot       = true
   deletion_protection       = false
 
