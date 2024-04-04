@@ -67,7 +67,6 @@ jobs:
           docker run --rm
           --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
           redgate/flyway
-          -licenseKey="${{ secrets.FLYWAY_LICENSE_KEY }}"
           -url="${{ secrets.DB_URL }}"
           -user="${{ secrets.DB_USERNAME }}"
           -password="${{ secrets.DB_PASSWORD }}"
