@@ -75,7 +75,6 @@ provider "aws" {
 #     Name = "spectacle stack db security group"
 #   }
 # }
-
 # create the subnet group for the rds instance
 # resource "aws_db_subnet_group" "database_subnet_group" {
 #   name         = "spectacle-stack-db-subnet"
