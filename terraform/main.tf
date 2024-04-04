@@ -1,3 +1,7 @@
+import {
+  to = aws_db_subnet_group.default
+  id = "production-subnet-group"
+}
 
 provider "aws" {
   region = var.aws_region
@@ -19,7 +23,7 @@ module "db" {
   port                      = 1433
   publicly_accessible       = true
   vpc_security_group_ids    = [var.vpc_security_group]
-  db_subnet_group_name      = "spectacles-stack-db-subnet-public1-eu-west-1a"
+  db_subnet_group_name      = "spectacles-stack-db-subnet-group"
   multi_az = false
 
   maintenance_window        = "Mon:00:00-Mon:03:00"
