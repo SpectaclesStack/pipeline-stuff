@@ -67,7 +67,6 @@
 # variable "db_subnet_id_two" {
 #     default = "subnet-0abbe4dbf1c33983c"
 # }
-# 
 # variable "db_availability_zone" {
 #   default = "eu-west-1a"
 # }
