@@ -48,7 +48,7 @@ variable "password" {
 variable "vpc_id" {
   default     = "vpc-083f32e755c65e040"
 }
-#
+
 variable "vpc_security_group" {
     default = "sg-0b07ab97177f87775"
     description = "Db security group"
