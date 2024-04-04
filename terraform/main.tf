@@ -1,8 +1,3 @@
-import {
-  to = aws_db_subnet_group.default
-  id = "production-subnet-group"
-}
-
 provider "aws" {
   region = var.aws_region
 }
