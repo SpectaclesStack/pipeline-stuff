@@ -57,7 +57,6 @@ jobs:
 
   migration:
     name: Run Flyway Migration
-  
     runs-on: ubuntu-latest
    
     steps:
