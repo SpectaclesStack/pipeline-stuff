@@ -1,4 +1,5 @@
-
+CREATE DATABASE SpectablesStackDB;
+GO
 USE SpectablesStackDB;
 GO
 
