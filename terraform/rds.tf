@@ -86,7 +86,6 @@ provider "aws" {
 #     Name = "spectacle-stack-db-subnet"
 #   }
 # }
-
 # create the rds instance
 module "db" {
   source = "terraform-aws-modules/rds/aws"
