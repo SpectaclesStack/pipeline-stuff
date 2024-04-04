@@ -1,6 +1,12 @@
 
 provider "aws" {
   region = var.aws_region
+  # default_tags {
+  #   tags = {
+  #     owner         = "Wandile.Nyembe@bbd.co.za"
+  #     created-using = "Terraform"
+  #   }
+  # }
 }
 
 # create default vpc if one does not exist
