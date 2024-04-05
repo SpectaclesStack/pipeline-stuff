@@ -3,87 +3,6 @@ provider "aws" {
   region  = "eu-west-1"
 }
 
-# create default vpc if one does not exist
-#resource "aws_default_vpc" "default_vpc" {
-#  tags = {
-#    Name = "spectacles-stack-vpc"
-#  }
-#}
-
-# use data source to get all avalablility zones in region
-# data "aws_availability_zones" "available_zones" {}
-# 
-# # create a default subnet in the first az if one does not exist
-# resource "aws_default_subnet" "subnet_az1" {
-#   availability_zone = data.aws_availability_zones.available_zones.names[0]
-# }
-# 
-# # create a default subnet in the second az if one does not exist
-# resource "aws_default_subnet" "subnet_az2" {
-#   availability_zone = data.aws_availability_zones.available_zones.names[1]
-# }
-
-# create security group for the web server
-# resource "aws_security_group" "webserver_security_group" {
-#   name        = "spectacle stack api server security group"
-#   description = "enable http access on port 8091"
-#   vpc_id      = aws_default_vpc.default_vpc.id
-# 
-#   ingress {
-#     description      = "http access"
-#     from_port        = 8091 # assuming c# will be using port 8091
-#     to_port          = 8091
-#     protocol         = "tcp"
-#     cidr_blocks      = ["0.0.0.0/0"]
-#   }
-# 
-#   egress {
-#     from_port        = 0
-#     to_port          = 0
-#     protocol         = -1 # can send responses to any port
-#     cidr_blocks      = ["0.0.0.0/0"]
-#   }
-# 
-#   tags   = {
-#     Name = "spectacle stack api server security group"
-#   }
-# }
-
-# create security group for the database
-# resource "aws_security_group" "database_security_group" {
-#   name        = "spectacle stack db security group"
-#   description = "enable sqlserver/wandile access on port 1433"
-#   vpc_id      = aws_default_vpc.default_vpc.id
-# 
-#   ingress {
-#     description      = "sqlserver/wandile access"
-#     from_port        = 1433
-#     to_port          = 1433
-#     protocol         = "tcp"
-#     cidr_blocks      = ["0.0.0.0/0"]
-# 
-#   }
-#   egress {
-#     from_port        = 0
-#     to_port          = 0
-#     protocol         = -1
-#     cidr_blocks      = ["0.0.0.0/0"]
-#   }
-# 
-#   tags   = {
-#     Name = "spectacle stack db security group"
-#   }
-# }
-# create the subnet group for the rds instance
-# resource "aws_db_subnet_group" "database_subnet_group" {
-#   name         = "spectacle-stack-db-subnet"
-#   subnet_ids   = [aws_default_subnet.subnet_az1.id, aws_default_subnet.subnet_az2.id]
-#   description  = "subnets for spectacle-stack db instance"
-# 
-#   tags   = {
-#     Name = "spectacle-stack-db-subnet"
-#   }
-# }
 # create the rds instance
 module "db" {
   source = "terraform-aws-modules/rds/aws"
@@ -114,4 +33,15 @@ module "db" {
   character_set_name        = "Latin1_General_CI_AS"
 
   create_db_option_group    = false
+}
+
+module "ec2-instance" {
+  source                       = "terraform-aws-modules/ec2-instance/aws"
+  name                         = "spectacles-stack-api-server-instance"
+  key_name                     = "spectacle-stacks-api-key"
+  instance_type                = "t2.micro"
+  ami_ssm_parameter            = "/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id"
+  vpc_security_group_ids       = ["sg-012b3f4f0396e4c9a"]
+  subnet_id                    = "subnet-032070b4837c85e0e"
+  associate_public_ip_address  = true
 }
