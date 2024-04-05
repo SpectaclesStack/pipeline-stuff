@@ -1,0 +1,73 @@
+name: Build and Release - DB
+
+on:
+  push:
+    branches:
+      - db_migration_deployment_pipeline
+      #- 'db/*'
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Build and Deploy Database
+    needs: migration
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Git checkout 
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials from AWS account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-session-name: Github-OIDC-TERRAFORM
+          audience: sts.amazonaws.com
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
+      - name: Terraform Init 
+        id: init
+        working-directory: ./terraform
+        run: terraform init 
+
+      - name: Terraform Validate
+        id: validate
+        working-directory: ./terraform
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        working-directory: ./terraform
+        run: terraform plan
+
+      - name: Terraform Apply
+        working-directory: ./terraform
+        run: terraform apply -auto-approve
+
+  migration:
+    name: Run Flyway Migration
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+  
+      - name: Continuous Integration Flyway Clean Migrate
+        run: >-
+          docker run --rm
+          --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
+          redgate/flyway
+          -user="${{ secrets.DB_USER }}"
+          -password="${{ secrets.DB_PASSWORD }}"
+          -url="${{ secrets.DB_URL }}"
+          -cleanDisabled=false migrate -X
