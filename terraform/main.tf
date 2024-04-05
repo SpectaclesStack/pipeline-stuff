@@ -27,7 +27,6 @@ module "db" {
   backup_retention_period   = 1
   skip_final_snapshot       = true
   deletion_protection       = false
-
   create_db_parameter_group = false
   timezone                  = "GMT Standard Time"
   character_set_name        = "Latin1_General_CI_AS"
