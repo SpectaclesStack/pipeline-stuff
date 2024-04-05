@@ -1,4 +1,5 @@
 name: Build and Release - DB
+
 on:
   push:
     branches:
