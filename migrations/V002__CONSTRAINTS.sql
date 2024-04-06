@@ -1,7 +1,3 @@
-
-ALTER TABLE Users
-ADD CONSTRAINT UsersPK PRIMARY KEY (UserId);
-
 -- Adding unique constraint on Email column in Users table
 ALTER TABLE Users
 ADD CONSTRAINT UniqueEmail UNIQUE (Email);
@@ -10,17 +6,10 @@ ADD CONSTRAINT UniqueEmail UNIQUE (Email);
 ALTER TABLE Users
 ADD CONSTRAINT UniqueUserName UNIQUE (UserName);
 
--- Adding primary key constraint on Questions table
-ALTER TABLE Questions
-ADD CONSTRAINT QuestionsPK PRIMARY KEY (QuestionId);
-
 -- Adding foreign key constraint on UserId column in Questions table
 ALTER TABLE Questions
 ADD CONSTRAINT QuestionsFK FOREIGN KEY (UserId) REFERENCES Users(UserId);
 
--- Adding primary key constraint on Answers table
-ALTER TABLE Answers
-ADD CONSTRAINT AnswersPK PRIMARY KEY (AnswerId);
 
 -- Adding foreign key constraint on UserId column in Answers table
 ALTER TABLE Answers
