@@ -1,4 +1,4 @@
--- Adding primary key constraint on Users table
+
 ALTER TABLE Users
 ADD CONSTRAINT UsersPK PRIMARY KEY (UserId);
 
