@@ -11,7 +11,7 @@ permissions:
 jobs:
   deploy:
     name: Build and Deploy Database
-    # needs: migration
+    needs: migration
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -53,20 +53,20 @@ jobs:
         working-directory: ./terraform
         run: terraform apply -auto-approve
 
-#  migration:
-#    name: Run Flyway Migration
-#    runs-on: ubuntu-latest
-#   
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3.0.0
-#  
-#      - name: Continuous Integration Flyway Clean Migrate
-#        run: >-
-#          docker run --rm
-#          --volume ${{ github.workspace }}/migrations:/flyway/sql:ro
-#          redgate/flyway
-#          -user="${{ secrets.DB_USER }}"
-#          -password="${{ secrets.DB_PASSWORD }}"
-#          -url="${{ secrets.DB_URL }}"
-#          -cleanDisabled=false migrate -X
+  migration:
+    name: Run Flyway Migration
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.0.0
+  
+      - name: Run Live Flyway Migrations
+        uses: joshuaavalon/flyway-action@v3.0.0
+        with:
+          url: ${{ secrets.DB_URL }}
+          user: ${{ secrets.DB_USER }}
+          password: ${{ secrets.DB_PASSWORD }}
+          locations:  filesystem:./migrations
+        env:
+          FLYWAY_VALIDATE_MIGRATION_NAMING: true
