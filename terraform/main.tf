@@ -9,7 +9,7 @@ module "db" {
   identifier                = "spectacles-stack-rds-instance"
   engine                    = "postgres"
   engine_version            = "16"
-  family                    = "postgres16" # DB parameter group
+  family                    = "postgres16"
   major_engine_version      = "16"            
   instance_class            = "db.t3.micro"
   allocated_storage         = 20
@@ -31,11 +31,45 @@ module "db" {
 
 module "ec2-instance" {
   source                       = "terraform-aws-modules/ec2-instance/aws"
-  name                         = "spectacles-stack-api-server-instance"
-  key_name                     = "spectacle-stacks-api-key"
+  name                         = "spectacles-stack-api-server"
+  key_name                     = "spectacles-stack-api-ssh-key"
   instance_type                = "t2.micro"
   ami_ssm_parameter            = "/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id"
   vpc_security_group_ids       = ["sg-012b3f4f0396e4c9a"]
   subnet_id                    = "subnet-032070b4837c85e0e"
   associate_public_ip_address  = true
+}
+
+output "ec2_public_ip" {
+  value = module.ec2-instance.public_ip
+}
+
+module "ecr" {
+  source = "terraform-aws-modules/ecr/aws"
+
+  repository_name = "spectacles-stack-api-repo"
+  create_repository = false
+
+  repository_lifecycle_policy = jsonencode({
+    rules = [
+      {
+        rulePriority = 1,
+        description  = "Keep last 7 images",
+        selection = {
+          tagStatus     = "tagged",
+          tagPrefixList = ["v"],
+          countType     = "imageCountMoreThan",
+          countNumber   = 7
+        },
+        action = {
+          type = "expire"
+        }
+      }
+    ]
+  })
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
