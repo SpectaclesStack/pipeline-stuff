@@ -11,7 +11,7 @@ permissions:
 jobs:
   deploy:
     name: Build and Deploy Database
-    needs: migration
+    #needs: migration
     runs-on: ubuntu-latest
     defaults:
       run:
