@@ -2,7 +2,7 @@ name: Build and Release - DB
 on:
   push:
     branches:
-      - db_migration_deployment_pipeline
+      - main
 
 permissions:
   id-token: write
