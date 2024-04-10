@@ -1,0 +1,2 @@
+ALTER TABLE answers
+ADD COLUMN answer Body TEXT NOT NULL;
